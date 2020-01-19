@@ -14,7 +14,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        //
+        return view('students.create_students');
     }
 
     /**
@@ -57,7 +57,7 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        //
+         return "Under Contruction";
     }
 
     /**

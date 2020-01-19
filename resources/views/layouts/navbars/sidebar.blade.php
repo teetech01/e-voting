@@ -4,10 +4,10 @@
 -->
   <div class="logo">
     <a href="http://www.creative-tim.com" class="simple-text logo-mini">
-      {{ __('CT') }}
+      {{ __('E-') }}
     </a>
     <a href="http://www.creative-tim.com" class="simple-text logo-normal">
-      {{ __('Creative Tim') }}
+      {{ __('VOTING') }}
     </a>
   </div>
   <div class="sidebar-wrapper" id="sidebar-wrapper">
@@ -18,30 +18,48 @@
           <p>{{ __('Dashboard') }}</p>
         </a>
       </li>
-      <li>
-        <a data-toggle="collapse" href="#laravelExamples">
-            <i class="fab fa-laravel"></i>
+
+    <li class="@if ($activePage == 'profile') active @endif">
+        <a href="{{ route('profile.edit') }}">
+        <i class="now-ui-icons users_single-02"></i>
+        <p> {{ __("User Profile") }} </p>
+        </a>
+    </li>
+    <li class="@if ($activePage == 'users') active @endif">
+        <a href="{{ route('user.index') }}">
+        <i class="now-ui-icons design_bullet-list-67"></i>
+        <p> {{ __("User Management") }} </p>
+        </a>
+    </li>
+
+
+        <!-- Student Module -->
+        <li>
+        <a data-toggle="collapse" href="#student">
+            <i class="now-ui-icons users_single-02"></i>
           <p>
-            {{ __("Laravel Examples") }}
+            {{ __("Students") }}
             <b class="caret"></b>
           </p>
         </a>
-        <div class="collapse show" id="laravelExamples">
+        <div class="collapse show" id="student">
           <ul class="nav">
-            <li class="@if ($activePage == 'profile') active @endif">
-              <a href="{{ route('profile.edit') }}">
-                <i class="now-ui-icons users_single-02"></i>
-                <p> {{ __("User Profile") }} </p>
-              </a>
-            </li>
-            <li class="@if ($activePage == 'users') active @endif">
-              <a href="{{ route('user.index') }}">
-                <i class="now-ui-icons design_bullet-list-67"></i>
-                <p> {{ __("User Management") }} </p>
-              </a>
-            </li>
+                <li class="@if ($activePage == 'add_student') active @endif">
+                    <a href="{{ route('student','add_student') }}">
+                    <i class="fas fa-plus"></i>
+                    <p>{{ __('Add student') }}</p>
+                    </a>
+                </li>
+                <li class="@if ($activePage == 'edit_student') active @endif">
+                    <a href="{{ route('student.edit','edit_student') }}">
+                    <i class="fas fa-plus"></i>
+                    <p>{{ __('Edit student') }}</p>
+                    </a>
+                </li>
           </ul>
         </div>
+
+
       <li class="@if ($activePage == 'icons') active @endif">
         <a href="{{ route('page.index','icons') }}">
           <i class="now-ui-icons education_atom"></i>
