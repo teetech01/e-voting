@@ -11,13 +11,14 @@
 |
 */
 
+// use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Route;
+
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -29,8 +30,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
 
     // Student Route
-    Route::get('student', ['as'=> 'student', 'uses' => 'StudentController@index']);
-    Route::get('student/{student}', ['as' => 'student.edit', 'uses' => 'StudentController@edit']);
+    Route::resource('student', 'StudentController');
 
 	Route::get('{page}', ['as' => 'page.index', 'uses' => 'PageController@index']);
 });

@@ -45,15 +45,15 @@
         <div class="collapse show" id="student">
           <ul class="nav">
                 <li class="@if ($activePage == 'add_student') active @endif">
-                    <a href="{{ route('student','add_student') }}">
+                    <a href="{{ route('student.create','add_student') }}">
                     <i class="fas fa-plus"></i>
                     <p>{{ __('Add student') }}</p>
                     </a>
                 </li>
                 <li class="@if ($activePage == 'edit_student') active @endif">
-                    <a href="{{ route('student.edit','edit_student') }}">
-                    <i class="fas fa-plus"></i>
-                    <p>{{ __('Edit student') }}</p>
+                    <a href="{{ route('student.index') }}">
+                    <i class="fas fa-users"></i>
+                    <p>{{ __('All students') }}</p>
                     </a>
                 </li>
           </ul>
