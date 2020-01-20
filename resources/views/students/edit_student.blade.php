@@ -64,7 +64,7 @@
                     <div class="col-md-7 pr-1">
                     <div class="form-group {{ $errors->has('password') ? ' has-danger' : '' }}">
                         <label>{{__(" Password (Optional)")}}</label>
-                        <input class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('password') }}" type="password" name="password">
+                        <input class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('password') }}" type="text" name="password" readonly> <button id="generate_password" class="btn btn-primary btn-round ">{{__('Generate Password')}}</button>
                         @include('alerts.feedback', ['field' => 'password'])
                     </div>
                     </div>
@@ -94,7 +94,7 @@
                     <div class="form-group {{ $errors->has('password') ? ' has-danger' : '' }}">
                         <label>{{__(" Post (Optional)")}}</label>
                         <select class="browser-default custom-select" name="political_post_id">
-                            <option value="" disabled selected>Choose your option</option>
+                            <option value="" selected>Choose your option</option>
                             @foreach($posts as $post)
                                 <option value="{{$post->id}}" @if($post->id == $student->political_post_id) selected @endif>{{$post->title}}</option>
                             @endforeach
@@ -121,8 +121,17 @@
 @push('js')
 <script>
 $(function(){
-    $("#bulk_upload_btn").on("click", function(){
-        $("#bulk_upload_form").submit();
+    $("#generate_password").on("click", function(e){
+        e.preventDefault();
+        var result           = '';
+        var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for ( var i = 0; i < 6; i++ ) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+
+        $('[name="password"]').val(result);
+
     });
 });
 </script>

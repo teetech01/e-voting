@@ -122,17 +122,35 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
+        if ($request->hasFile('picture')) {
+
+            $this->validate($request, [
+                'picture' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+
+            if ($request->file('picture')->isValid()) {
+                $path = $request->picture->store('picture', 'public');
+            }
+            $student_arr['picture_url'] = $path ?? '';
+        }
+
         $this->validate($request, [
             'matric_no' => 'required|string',
             'full_name' => 'required|string',
             'dues' => 'nullable|string',
-            'picture_url' => 'nullable|string',
             'password' => 'nullable|string',
             'political_post_id' => 'nullable|string',
         ]);
 
-        $student->update($request->all());
-        return view('students.view_students')->withStatus('Record Updated!');
+        $student_arr['matric_no'] = $request->input('matric_no');
+        $student_arr['full_name'] = $request->input('full_name');
+        if ($request->has('dues')) $student_arr['dues'] =  $request->input('dues');
+        if ($request->has('political_post_id')) $student_arr['political_post_id'] =  $request->input('political_post_id');
+        if ($request->has('password')) $student_arr['password'] = $request->input('password');
+
+        Student::whereId($student->id)->update($student_arr);
+
+        return redirect('student')->withStatus('Record Updated!');
     }
 
     /**
