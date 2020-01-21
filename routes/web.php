@@ -9,29 +9,33 @@
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 
 // use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Route;
-
 
 Route::get('/', function () {
     return view('welcome');
 });
 
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['middleware' => 'auth'], function () {
-	Route::resource('user', 'UserController', ['except' => ['show']]);
-	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);
-	Route::put('profile', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
+Route::post('/go_vote', 'LoginController@authenticate')->name('go_vote');
+
+Route::group(['middleware' => 'auth:web'], function () {
+    Route::resource('user', 'UserController', ['except' => ['show']]);
+    Route::get('profile', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);
+    Route::put('profile', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
     Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
 
     // Student Route
     Route::resource('student', 'StudentController');
 
-	Route::get('{page}', ['as' => 'page.index', 'uses' => 'PageController@index']);
+    Route::get('{page}', ['as' => 'page.index', 'uses' => 'PageController@index']);
 });
 
+Route::group(['middleware' => 'auth:student'], function () {
+    Route::get('vote/candidate', ['as' => 'vote.candidate', 'uses' => 'VoteController@index']);
+    Route::get('{page}', ['as' => 'page.index', 'uses' => 'PageController@index']);
+});

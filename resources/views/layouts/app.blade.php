@@ -40,6 +40,16 @@
         border-color: #b7cfe0;
     }
     </style>
+
+    @auth('student')
+        <style>
+            .main-panel {
+                width: 100%;
+            }
+        </style>
+    @endauth
+
+    @stack('css')
 </head>
 
 <body class="{{ $class ?? '' }}">

@@ -11,7 +11,7 @@ class PoliticalPost extends Model
         return $this->hasMany('App\Student', 'political_post_id')->count();
     }
 
-    public function candidate()
+    public function candidates()
     {
         return $this->hasMany('App\Student', 'political_post_id');
     }

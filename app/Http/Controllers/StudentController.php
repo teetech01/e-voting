@@ -6,7 +6,9 @@ use App\Student;
 use App\PoliticalPost;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
+
 use DB;
 
 class StudentController extends Controller
@@ -146,8 +148,7 @@ class StudentController extends Controller
         $student_arr['full_name'] = $request->input('full_name');
         if ($request->has('dues')) $student_arr['dues'] =  $request->input('dues');
         if ($request->has('political_post_id')) $student_arr['political_post_id'] =  $request->input('political_post_id');
-        if ($request->has('password')) $student_arr['password'] = $request->input('password');
-
+        if ($request->has('password')) $student_arr['password'] = Hash::make($request->input('password'));
         Student::whereId($student->id)->update($student_arr);
 
         return redirect('student')->withStatus('Record Updated!');

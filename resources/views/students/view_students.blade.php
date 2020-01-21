@@ -1,7 +1,7 @@
 @extends('layouts.app', [
     'namePage' => 'All Student',
     'class' => 'sidebar-mini',
-    'activePage' => 'table',
+    'activePage' => 'index',
   ])
 
 @section('content')
